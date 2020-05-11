@@ -1,0 +1,28 @@
+﻿@model ProjectModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-controller="ProjectAdmin" asp-action="Create" method="post" id="category-form">
+
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            Add new
+            <small>
+                <i class="fa fa-arrow-circle-left"></i>
+                <a asp-action="List">Back to list</a>
+            </small>
+        </h1>
+        <div class="pull-right">
+            <button type="submit" class="btn bg-blue">
+                <i class="fa fa-floppy-o"></i>
+               Save
+            </button>
+
+            
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Plugins/Projects/Views/ProjectAdmin/_CreateOrUpdate.cshtml", Model)
+</form>

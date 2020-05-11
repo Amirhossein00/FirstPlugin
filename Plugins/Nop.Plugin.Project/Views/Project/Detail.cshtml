@@ -1,0 +1,73 @@
+﻿@model ProjectViewModel
+
+@{
+    string shortDescription = Model.ShortDescription;
+    Layout = "_ColumnsOne";
+
+}
+<style>
+    .article_header {
+        padding-bottom: 30px;
+        border-bottom: 1px solid black;
+        display: block;
+        text-align: center;
+    }
+
+    .all_articles {
+        border: black solid 1px;
+        border-radius: 10px;
+    }
+
+    #project-img {
+        display: block;
+        margin: auto;
+    }
+
+    .project_shortdesc {
+        text-align: center;
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .project_fulldesc {
+        text-align: center;
+        padding: 62px 15px 15px 10px;
+        margin: 15px;
+    }
+
+    ._btn_list {
+        border: 1px solid #4ab2f1;
+        background: #4ab2f1;
+        color: whitesmoke;
+        border-radius: 15px;
+        padding: 4px 15px 4px 15px;
+    }
+</style>
+<div style="padding-bottom: 10px; ">
+
+    <h2 class="article_header">
+        @Model.Name
+    </h2>
+    <div class="col-md-12 text-center">
+        <img style="max-width:1000px;height:auto;" id="project-img" class="thumbnail" src="@Model.PictureUrl" />
+    </div>
+    <div class="all_articles">
+        <div class="project_shortdesc">
+            <h4>
+                @Html.Raw(Model.ShortDescription)
+            </h4>
+        </div>
+        <div class="project_fulldesc">
+            <h3>
+                @Html.Raw(Model.FullDescription)
+            </h3>
+        </div>
+    </div>
+
+
+
+</div>
+<div>
+
+    <a class="_btn_list" asp-action="Index">List</a>
+</div>

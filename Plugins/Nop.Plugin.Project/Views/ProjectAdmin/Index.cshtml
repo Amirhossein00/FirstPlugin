@@ -1,0 +1,182 @@
+﻿@model ProjectSearchModel
+@{ 
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .right-txt {
+        direction: rtl;
+    }
+
+    .pic-optimize img {
+        max-height: 50px;
+        width: auto;
+    }
+</style>
+<form method="post">
+    <div class="content-header clearfix">
+        <h1 class="pull-left">
+            Project
+        </h1>
+        <div class="pull-right">
+            <a asp-action="Create" class="btn bg-blue">
+                <i class="fa fa-plus-square"></i>
+
+            </a>
+            <button type="button" id="delete-selected" class="btn bg-red">
+                <i class="fa fa-trash-o"></i>
+                Delete
+            </button>
+            <nop-action-confirmation asp-button-id="delete-selected" />
+
+        </div>
+    </div>
+    <div class="content">
+        <div class="form-horizontal">
+            <div class="panel-group">
+                <div class="panel panel-default panel-search">
+                    <div class="row search-row" data-hideAttribute="Project_hideattribute">
+                        <div class="search-text">Search</div>
+                        <div class="icon-search"><i class="fa fa-search" aria-hidden="true"></i></div>
+                        <div class="icon-collapse"><i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                        <div class="row">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-md-4 right-txt">
+                                        <label for="@Model.Name" class="control-label">
+                                            Title
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-editor asp-for="@Model.Name" />
+                                     
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 right-txt">
+                                        <label class="control-label right-txt">
+                                            Published
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-select asp-for="@Model.PublishId" asp-items="@Model.Published" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 right-txt">
+                                        <label class="control-label">
+                                            Short Description
+                                        </label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <nop-editor asp-for="@Model.ShortDescription" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7 col-md-offset-5">
+                                    <button type="button" id="search-project" class="btn btn-primary btn-search">
+                                        <i class="fa fa-search"></i>
+
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        @await Html.PartialAsync("Table", new DataTablesModel
+                   {
+                       Name = "Project-grid",
+                       UrlRead = new DataUrl("ProjectList","ProjectAdmin", null),
+                       SearchButtonId = "search-project",
+                       Length = Model.PageSize,
+                       Filters = new List<FilterParameter>
+                       {
+                           new FilterParameter(nameof(Model.PublishId)),
+                           new FilterParameter(nameof(Model.Name)),
+                           new FilterParameter(nameof(Model.ShortDescription))
+                       },
+                       ColumnCollection = new List<ColumnProperty>
+                       {
+                           new ColumnProperty(nameof(ProjectModel.Id))
+                           {
+                               IsMasterCheckBox=true,
+                               Render=new RenderCheckBox("checkbox_projects"),
+                               Width="50",
+                               ClassName=NopColumnClassDefaults.CenterAll
+                           },
+                           new ColumnProperty(nameof(ProjectModel.Name))
+                           {
+                               Title="Title",
+                               ClassName=NopColumnClassDefaults.CenterAll,
+                               AutoWidth=true,
+
+                           },
+                           new ColumnProperty(nameof(ProjectModel.ShortDescription))
+                           {
+                               Title="ShortDescription",
+                               ClassName=NopColumnClassDefaults.CenterAll,
+                               AutoWidth=true,
+
+                           },
+                           new ColumnProperty(nameof(ProjectModel.Published))
+                           {
+                               Render=new RenderBoolean(),
+                               ClassName=NopColumnClassDefaults.CenterAll,
+                               Title="Published"
+                           },
+                           new ColumnProperty(nameof(ProjectModel.Id))
+                           {
+                               Title="Edit",
+                               ClassName=NopColumnClassDefaults.Button,
+                               Render=new RenderButtonEdit(new DataUrl("/Admin/ProjectAdmin/Edit",false))
+                           },
+                           new ColumnProperty(nameof(ProjectModel.PictureUrl))
+                           {
+                               ClassName="pic-optimize",
+                               Title="Picture",
+                               Width="100",
+                               Render=new RenderPicture()
+                           }
+                       }
+                   })
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $("#delete-selected-action-confirmation-submit-button").bind('click', function () {
+                                var postData = {
+                                    selectedIds: selectedIds
+                                };
+                                addAntiForgeryToken(postData);
+                                $.ajax({
+                                    type: "POST",
+                                    cache: false,
+                                    url: "@(Url.Action("DeleteSelected","ProjectAdmin"))",
+                                    data: postData,
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        $('#deleteSelectedFailed-info').text(errorThrown);
+                                        $('#deleteSelectedFailed').click();
+                                    },
+                                    complete: function (jqXHR, textStatus) {
+                                        updateTable('#Project-grid');
+                                    }
+                                });
+                                $('#delete-selected-action-confirmation').modal('toggle');
+                                return false;
+                                });
+                        });
+                    </script>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</form>
+<form asp-controller="Project" asp-action="ExportXmlselected" method="post" id="export-xml-selected-form">
+    <input type="hidden" id="selectedIds" name="selectedIds" value="" />
+</form>

@@ -1,0 +1,11 @@
+{
+  "Group": "Misc",
+  "FriendlyName": "Project feature",
+  "SystemName": "Misc.Project",
+  "Version": "1.0",
+  "SupportedVersions": [ "4.20" ],
+  "Author": "Amirhossein Hosseinzadeh",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Projects.dll",
+  "Description": "This plugin allows you to Manage Simple Content"
+}

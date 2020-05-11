@@ -1,0 +1,21 @@
+﻿@model ProjectModel
+
+
+
+
+<div asp-validation-summary="All"></div>
+<input asp-for="Id" type="hidden" />
+
+<div class="content">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12 clearfix">
+                <div class="pull-left">
+                    @await Component.InvokeAsync("SettingMode", new { modeName = "category-advanced-mode" })
+                </div>
+            </div>
+        </div>
+
+        @await Html.PartialAsync("~/Plugins/Projects/Views/ProjectAdmin/_CreateOrUpdate.Info.cshtml")
+    </div>
+</div>

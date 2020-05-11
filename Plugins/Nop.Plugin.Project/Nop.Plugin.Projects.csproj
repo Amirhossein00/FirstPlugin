@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Copyright>Copyright © Resaneh Lab, Ltd</Copyright>
+    <Company>Resaneh lab</Company>
+    <Authors>Amirhossein Hosseinzadeh</Authors>
+    <PackageLicenseUrl>PACKAGE_LICENSE_URL</PackageLicenseUrl>
+    <PackageProjectUrl>PACKAGE_PROJECT_URL</PackageProjectUrl>
+    <RepositoryUrl>REPOSITORY_URL</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <OutputPath>..\..\Presentation\Nop.Web\Plugins\Projects\</OutputPath>
+    <OutDir>$(OutputPath)</OutDir>
+    <!--Set this parameter to true to get the dlls copied from the NuGet cache to the output of your    project. You need to set this parameter to true if your plugin has a nuget package to ensure that   the dlls copied from the NuGet cache to the output of your project-->
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Views\ProjectAdmin\Create.cshtml" />
+    <None Remove="Views\ProjectAdmin\Edit.cshtml" />
+    <None Remove="Views\ProjectAdmin\Index.cshtml" />
+    <None Remove="Views\ProjectAdmin\_CreateOrUpdate.cshtml" />
+    <None Remove="Views\ProjectAdmin\_CreateOrUpdate.Info.cshtml" />
+    <None Remove="Views\Project\Detail.cshtml" />
+    <None Remove="Views\Project\Index.cshtml" />
+    <None Remove="Views\Shared\_ViewStart.cshtml" />
+    <None Remove="Views\_ViewImports.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectAdmin\_CreateOrUpdate.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ProjectAdmin\_CreateOrUpdate.Info.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ProjectAdmin\Edit.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ProjectAdmin\Create.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ProjectAdmin\Index.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Project\Detail.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\Project\Index.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\_ViewImports.cshtml">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="plugin.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\Presentation\Nop.Web\Nop.Web.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
+  
+  <!-- This target execute after "Build" target -->
+  <Target Name="NopTarget" AfterTargets="Build">
+    <!-- Delete unnecessary libraries from plugins path -->
+    <MSBuild Projects="@(ClearPluginAssemblies)" Properties="PluginPath=$(MSBuildProjectDirectory)\$(OutDir)" Targets="NopClear" />
+  </Target>
+</Project>
