@@ -27,5 +27,7 @@ namespace Nop.Plugin.Projects.Services
         IList<Project> GetProjectsbyIds(int[] projectIds);
 
         void DeleteProjectByIds(IList<Project> projects);
+
+        List<Project> GetLastPublishedProjects(int take);
     }
 }

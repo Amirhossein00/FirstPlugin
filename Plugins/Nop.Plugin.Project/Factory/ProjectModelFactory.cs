@@ -45,7 +45,7 @@ namespace Nop.Plugin.Projects.Factory
             return projectModel;
         }
 
-        public IList<ProjectModel> GetModeListFromProjectList(List<Project> projectsList)
+        public IList<ProjectModel> GetModelListFromProjectList(List<Project> projectsList)
         {
             var projectModelList = projectsList.Select(p => new ProjectModel
             {

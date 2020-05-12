@@ -21,6 +21,7 @@
     <None Remove="Views\ProjectAdmin\_CreateOrUpdate.Info.cshtml" />
     <None Remove="Views\Project\Detail.cshtml" />
     <None Remove="Views\Project\Index.cshtml" />
+    <None Remove="Views\Shared\Default.cshtml" />
     <None Remove="Views\Shared\_ViewStart.cshtml" />
     <None Remove="Views\_ViewImports.cshtml" />
   </ItemGroup>
@@ -46,6 +47,9 @@
     <Content Include="Views\Project\Index.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Shared\Default.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\_ViewImports.cshtml">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -62,10 +66,6 @@
       <Private>false</Private>
     </ProjectReference>
     <ClearPluginAssemblies Include="$(MSBuildProjectDirectory)\..\..\Build\ClearPluginAssemblies.proj" />
-  </ItemGroup>
-  
-  <ItemGroup>
-    <Folder Include="Views\Shared\" />
   </ItemGroup>
   
   <!-- This target execute after "Build" target -->

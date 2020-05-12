@@ -37,7 +37,7 @@ namespace Nop.Plugin.Projects.Controllers
         public IActionResult Index()
         {
             var project = _projectService.GetAllPublicProjects();
-            var model = _projectModelFactory.GetModeListFromProjectList(project.ToList());
+            var model = _projectModelFactory.GetModelListFromProjectList(project.ToList());
 
             return View("~/Plugins/Projects/Views/Project/Index.cshtml", model);
         }

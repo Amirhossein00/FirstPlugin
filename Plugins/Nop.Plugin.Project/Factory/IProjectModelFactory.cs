@@ -6,7 +6,7 @@ namespace Nop.Plugin.Projects.Factory
 {
     public interface IProjectModelFactory
     {
-        IList<ProjectModel> GetModeListFromProjectList(List<Project> projectsList);
+        IList<ProjectModel> GetModelListFromProjectList(List<Project> projectsList);
 
         ProjectModel GetModelFromProject(Project project);
 

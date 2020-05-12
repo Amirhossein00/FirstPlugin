@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ProjectModel>
+
+<div class="product-grid home-page-product-grid">
+    <div class="title">
+        <strong>
+            Last Published Projects
+        </strong>
+    </div>
+    <div class="item-grid">
+        @foreach (var item in Model)
+        {
+            <div class="item-box">
+                <div class="product-item">
+                    <div class="picture">
+                        <a asp-action="Detail" asp-controller="Project" asp-route-id="@item.Id">
+                            <img src="@item.PictureUrl" />
+                        </a>
+                    </div>
+                    <div class="details">
+                        <a asp-controller="Project" asp-action="Detail" asp-route-id="@item.Id">
+                            <h2 class="product-titile">
+                                @item.Name
+                            </h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

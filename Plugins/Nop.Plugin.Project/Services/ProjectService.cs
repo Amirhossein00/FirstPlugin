@@ -133,6 +133,15 @@ namespace Nop.Plugin.Projects.Services
             }
 
         }
+
+
+        public List<Project> GetLastPublishedProjects(int take)
+        {
+            var projectList = _projectRepository.Table.Where(p => p.Published == true).OrderByDescending(p => p.Id).Take(take).ToList();
+            return projectList;
+        }
+
+
         #endregion
     }
 }
