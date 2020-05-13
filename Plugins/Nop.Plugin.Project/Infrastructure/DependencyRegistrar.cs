@@ -11,6 +11,7 @@ using Nop.Plugin.Projects.Domain;
 using Nop.Plugin.Projects.Factory;
 using Nop.Plugin.Projects.Services;
 using Nop.Web.Framework.Infrastructure.Extensions;
+using Nop.Web.Framework.Seo;
 
 namespace Nop.Plugin.Projects.Infrastructure
 {
@@ -28,6 +29,7 @@ namespace Nop.Plugin.Projects.Infrastructure
             builder.RegisterType<EfRepository<Project>>().As<IRepository<Project>>()
                 .WithParameter(ResolvedParameter.ForNamed<IDbContext>("nop_object_Context_project"))
                 .InstancePerLifetimeScope();
+            
         }
 
         public int Order => 1;

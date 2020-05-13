@@ -60,7 +60,7 @@
 
                 <td>
 
-                    <a class="_btn" asp-action="Detail" asp-route-id="@item.Id">Details</a>
+                    <a class="_btn" @Url.RouteUrl("ProjectDetails",new { SeName=item.SeName})>Details</a>
 
                 </td>
             </tr>

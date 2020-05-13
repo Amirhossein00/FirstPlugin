@@ -54,7 +54,7 @@ namespace Nop.Plugin.Projects
                 Title = "Project",
                 Visible = true,
                 IconClass = "fa-tie",
-                
+
                 ChildNodes = new List<SiteMapNode>
                 {
                     new SiteMapNode
